@@ -14,13 +14,6 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import classification_report
 
-#from gensim.models import Word2Vec, KeyedVectors
-
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-import collections
-
 import pickle 
 
 st.title("Emotion Classification")
