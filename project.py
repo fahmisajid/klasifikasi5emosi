@@ -1,22 +1,16 @@
 import pandas as pd
-import numpy as np
-import re
-import string
-import nltk
 import streamlit as st
-
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import cross_val_predict
-from sklearn.metrics import classification_report
 
 import pickle 
 
-st.title("Emotion Classification")
+st.title("Prediksi Emosi")
+
+st.markdown(""" ## Judul Penelitian: Perbandingan Algoritma Klasifikasi terhadap Emosi Tweet Berbahasa Indonesia
+Dataset: [Indonesian-Twitter-Emotion-Dataset](https://github.com/meisaputri21/Indonesian-Twitter-Emotion-Dataset)  \n
+Text Preprocessing: _ Cleaning _, _ Case Folding _, Normalisasi  \n
+Algoritma: Logistic Regtression, Hyperparameter C = 1.623776739188721  \n
+
+""")
 
 
 df = pd.read_csv('Twitter_Emotion_Datasetab.csv')
@@ -31,7 +25,7 @@ with open("countVectLR", 'rb') as file:
 with open("tfidfLR", 'rb') as file:
     tfidf_transformer = pickle.load(file)
 
-sentence = st.text_input('Input your sentence here:') 
+sentence = st.text_input('Masukkan Kalimat:') 
 
 text_new =[sentence]
 X_new_counts = count_vect.transform(text_new)
@@ -41,11 +35,12 @@ prediction = classifier.predict(X_new_tfidf)
 prediction_proba = classifier.predict_proba(X_new_tfidf)
 
 if sentence:
+    st.text("Emosi:")
     st.write(prediction[0])
 
-    st.subheader('Class labels and index number')
+    st.subheader('Kelas Label dan Nomor Indeks')
     st.write(classifier.classes_)
 
-    st.subheader('Prediction Probability')
+    st.subheader('Probabilitas Prediksi')
     st.write(prediction_proba)
 
